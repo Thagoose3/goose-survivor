@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Goose Survivor: Bullet Hell 🦆💥</title>
+  <link rel="icon" type="image/png" href="assets/icon.png">
+  <link rel="shortcut icon" href="assets/icon.ico">
+  <link rel="stylesheet" href="styles/game.css">
+</head>
+<body>
+  <!-- 60FPS High-Performance Game Canvas -->
+  <canvas id="game-canvas"></canvas>
+
+  <!-- Top In-Game HUD -->
+  <header class="game-top-hud">
+    <div class="hud-left">
+      <div class="level-badge" id="hud-level-badge">LVL 1</div>
+      <div class="player-vitals">
+        <div class="vital-row">
+          <span class="vital-label">HP</span>
+          <div class="vital-bar-track">
+            <div class="hp-fill" id="hud-hp-bar"></div>
+          </div>
+          <span id="hud-hp-text" style="font-size: 10px; color: #A0B4C8; width: 45px;">100 / 100</span>
+        </div>
+        <div class="vital-row">
+          <span class="vital-label">EXP</span>
+          <div class="vital-bar-track">
+            <div class="exp-fill" id="hud-exp-bar"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hud-center">
+      <div class="game-timer" id="hud-timer">00:00</div>
+      <div class="skills-badge-group">
+        <div class="hud-skill-badge ready" id="hud-dash-status">⚡ DASH [SPACE]: READY</div>
+        <div class="hud-skill-badge ready" id="hud-honk-status">📢 HONK [H / CLICK]: READY</div>
+      </div>
+      <div id="hud-active-powerups"></div>
+    </div>
+
+    <div class="hud-right">
+      <div class="stat-pill">KILLS: <span id="hud-kills">0</span></div>
+      <div class="stat-pill" style="border-color: var(--neon-gold);">GRAZE: <span id="hud-graze-count" style="color: var(--neon-gold);">0</span></div>
+      <button class="sound-toggle-btn eco-active" id="btn-toggle-eco" title="Low CPU / Silent Fan Mode">⚡ ECO [ON - SILENT]</button>
+      <button class="sound-toggle-btn" id="btn-toggle-sound">🔊 SOUND [ON]</button>
+    </div>
+  </header>
+
+  <!-- START GAME SCREEN -->
+  <div id="start-screen" class="modal-backdrop">
+    <div class="menu-panel">
+      <div class="menu-title">🦆 GOOSE SURVIVOR: BULLET HELL 💥</div>
+      <div class="menu-subtitle">Peace Was Never An Option :: Dodge Bullets &amp; Blast Waves of Enemies!</div>
+      
+      <div class="how-to-play-grid">
+        <div class="htp-card">
+          <b>🕹️ MOVEMENT &amp; DASH</b>
+          Use <b>[W, A, S, D]</b> or Arrow keys to waddle around. Press <b>[SPACE / Shift]</b> to Dash roll with invulnerability frames!
+        </div>
+        <div class="htp-card">
+          <b>📢 MEGA HONK! DEFLECTOR</b>
+          Press <b>[H]</b> or <b>Left Click</b> to unleash a sonic HONK that vaporizes enemy bullets and knocks enemies back!
+        </div>
+        <div class="htp-card">
+          <b>🍞 HEALING &amp; LIFE STEAL</b>
+          Enemies drop <b>Bread Loaves (+25 HP)</b>. Pick the <b>Vampiric Goose Fangs</b> upgrade to steal HP on every kill!
+        </div>
+        <div class="htp-card">
+          <b>🌽 EVOLVE YOUR WEAPONS</b>
+          Collect dropped Corn to level up: Feather Gatling, Golden Egg Mines, Orbiting Butter Knives, and Mega Honk!
+        </div>
+      </div>
+
+      <button class="btn-primary" id="btn-start-game">START GAME [SPACE]</button>
+    </div>
+  </div>
+
+  <!-- LEVEL UP CARD SELECTION MODAL -->
+  <div id="levelup-modal" class="modal-backdrop hidden">
+    <div class="levelup-panel">
+      <div class="levelup-header">⚡ GOOSE LEVEL UP! CHOOSE AN UPGRADE ⚡</div>
+      <div class="upgrade-cards-grid" id="levelup-cards-container">
+        <!-- Injected via js/game.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- GAME OVER SCREEN -->
+  <div id="gameover-screen" class="modal-backdrop hidden">
+    <div class="menu-panel gameover-panel">
+      <div class="menu-title" style="color: var(--neon-red); text-shadow: 0 0 16px var(--neon-red);">☠️ THE GOOSE HAS FALLEN ☠️</div>
+      <div class="menu-subtitle">You ruffled a few too many feathers...</div>
+
+      <div class="gameover-stats-grid">
+        <div class="go-stat-card">
+          <div class="go-stat-title">SURVIVED TIME</div>
+          <div class="go-stat-val" id="go-time">00:00</div>
+        </div>
+        <div class="go-stat-card">
+          <div class="go-stat-title">MONSTERS SLAIN</div>
+          <div class="go-stat-val" id="go-kills" style="color: var(--neon-green);">0</div>
+        </div>
+        <div class="go-stat-card">
+          <div class="go-stat-title">BULLETS GRAZED</div>
+          <div class="go-stat-val" id="go-grazes" style="color: var(--neon-gold);">0</div>
+        </div>
+        <div class="go-stat-card">
+          <div class="go-stat-title">FINAL LEVEL</div>
+          <div class="go-stat-val" id="go-level" style="color: var(--neon-cyan);">LVL 1</div>
+        </div>
+      </div>
+
+      <button class="btn-primary" id="btn-restart-game" style="background: linear-gradient(90deg, #FF1B44, #FF7700); box-shadow: 0 0 20px rgba(255, 27, 68, 0.6);">PLAY AGAIN [SPACE]</button>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/audio.js"></script>
+  <script src="js/particles.js"></script>
+  <script src="js/entities.js"></script>
+  <script src="js/upgrades.js"></script>
+  <script src="js/game.js"></script>
+</body>
+</html>

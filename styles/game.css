@@ -1,0 +1,452 @@
+/**
+ * Goose Survivor: Bullet Hell - Cyber Arcade Styles
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700;800&family=Orbitron:wght@600;800;900&display=swap');
+
+:root {
+  --bg-dark: #07100B;
+  --neon-cyan: #00F0FF;
+  --neon-green: #00FF66;
+  --neon-pink: #FF007A;
+  --neon-gold: #FFE600;
+  --neon-orange: #FF7700;
+  --neon-red: #FF1B44;
+  --neon-purple: #B829FF;
+
+  --font-hud: "Orbitron", sans-serif;
+  --font-mono: "Fira Code", monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+}
+
+html, body {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-color: var(--bg-dark);
+  font-family: var(--font-mono);
+  color: #FFFFFF;
+}
+
+#game-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: block;
+  z-index: 1;
+}
+
+/* ==========================================================================
+   TOP HUD BAR
+   ========================================================================== */
+.game-top-hud {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 64px;
+  background: linear-gradient(180deg, rgba(7, 16, 11, 0.95) 0%, rgba(7, 16, 11, 0) 100%);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 24px;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.hud-left, .hud-center, .hud-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  pointer-events: auto;
+}
+
+/* Player HP & EXP Cluster */
+.player-vitals {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 200px;
+}
+
+.vital-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+}
+
+.vital-label {
+  font-family: var(--font-hud);
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--neon-gold);
+  width: 30px;
+}
+
+.vital-bar-track {
+  flex: 1;
+  height: 10px;
+  background: rgba(0, 0, 0, 0.7);
+  border: 1px solid rgba(0, 255, 102, 0.3);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.hp-fill {
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(90deg, #00FF66, #FFE600);
+  box-shadow: 0 0 8px #00FF66;
+  transition: width 0.2s ease;
+}
+
+.exp-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #FFE600, #FF7700);
+  box-shadow: 0 0 8px #FFE600;
+  transition: width 0.2s ease;
+}
+
+.level-badge {
+  background: rgba(255, 230, 0, 0.15);
+  border: 1px solid var(--neon-gold);
+  color: var(--neon-gold);
+  font-family: var(--font-hud);
+  font-size: 11px;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 3px;
+}
+
+/* Central Timer & Cooldown Badges */
+.hud-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.game-timer {
+  font-family: var(--font-hud);
+  font-size: 22px;
+  font-weight: 800;
+  color: #FFFFFF;
+  text-shadow: 0 0 10px rgba(0, 255, 102, 0.6);
+}
+
+.skills-badge-group {
+  display: flex;
+  gap: 8px;
+}
+
+#hud-active-powerups {
+  display: flex;
+  gap: 6px;
+  margin-top: 3px;
+}
+
+.hud-power-chip {
+  font-family: var(--font-hud);
+  font-size: 9px;
+  font-weight: 800;
+  padding: 2px 7px;
+  border-radius: 3px;
+  letter-spacing: 0.5px;
+}
+
+.hud-power-chip.freeze { background: rgba(0, 240, 255, 0.25); border: 1px solid #00F0FF; color: #00F0FF; }
+.hud-power-chip.coffee { background: rgba(255, 230, 0, 0.25); border: 1px solid #FFE600; color: #FFE600; }
+.hud-power-chip.chili  { background: rgba(255, 85, 0, 0.25); border: 1px solid #FF5500; color: #FF5500; }
+.hud-power-chip.shield { background: rgba(0, 240, 255, 0.25); border: 1px solid #00F0FF; color: #FFFFFF; }
+
+.hud-skill-badge {
+  font-family: var(--font-hud);
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 3px;
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid #555;
+  color: #888;
+  transition: all 0.2s ease;
+}
+
+.hud-skill-badge.ready {
+  border-color: var(--neon-green);
+  color: var(--neon-green);
+  background: rgba(0, 255, 102, 0.15);
+  box-shadow: 0 0 8px var(--neon-green);
+}
+
+/* Right Stats */
+.stat-pill {
+  background: rgba(4, 24, 14, 0.8);
+  border: 1px solid rgba(0, 255, 102, 0.3);
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+.stat-pill span {
+  font-family: var(--font-hud);
+  font-weight: 700;
+  color: var(--neon-gold);
+}
+
+.sound-toggle-btn {
+  background: rgba(4, 24, 14, 0.8);
+  border: 1px solid var(--neon-green);
+  color: var(--neon-green);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  padding: 6px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.sound-toggle-btn.eco-active {
+  border-color: var(--neon-gold);
+  color: var(--neon-gold);
+  background: rgba(255, 230, 0, 0.15);
+}
+
+.sound-toggle-btn.muted {
+  border-color: #666;
+  color: #888;
+}
+
+/* ==========================================================================
+   MODAL OVERLAYS (Start, Level-Up, Game Over)
+   ========================================================================== */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(3, 10, 6, 0.88);
+  backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+
+.menu-panel {
+  width: 640px;
+  background: #091910;
+  border: 2px solid var(--neon-gold);
+  border-radius: 8px;
+  padding: 32px;
+  text-align: center;
+  box-shadow: 0 0 40px rgba(255, 230, 0, 0.3);
+}
+
+.menu-title {
+  font-family: var(--font-hud);
+  font-size: 28px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  color: var(--neon-gold);
+  text-shadow: 0 0 16px var(--neon-gold);
+  margin-bottom: 8px;
+}
+
+.menu-subtitle {
+  font-size: 13px;
+  color: #B4DEC0;
+  margin-bottom: 24px;
+}
+
+.how-to-play-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  text-align: left;
+  margin-bottom: 24px;
+}
+
+.htp-card {
+  background: rgba(0, 255, 102, 0.05);
+  border: 1px solid rgba(0, 255, 102, 0.2);
+  padding: 12px;
+  border-radius: 4px;
+  font-size: 11.5px;
+  line-height: 1.5;
+}
+
+.htp-card b {
+  color: var(--neon-gold);
+  display: block;
+  margin-bottom: 4px;
+}
+
+.btn-primary {
+  background: linear-gradient(90deg, var(--neon-gold), var(--neon-green));
+  color: #000000;
+  border: none;
+  font-family: var(--font-hud);
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  padding: 12px 36px;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: 0 0 20px rgba(255, 230, 0, 0.5);
+  transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+  transform: scale(1.04);
+  box-shadow: 0 0 30px rgba(255, 230, 0, 0.8);
+}
+
+/* ==========================================================================
+   LEVEL UP CARD DRAFT MODAL
+   ========================================================================== */
+.levelup-panel {
+  width: 780px;
+  background: #091910;
+  border: 2px solid var(--neon-gold);
+  border-radius: 8px;
+  padding: 24px;
+  text-align: center;
+  box-shadow: 0 0 50px rgba(255, 230, 0, 0.4);
+}
+
+.levelup-header {
+  font-family: var(--font-hud);
+  font-size: 24px;
+  font-weight: 900;
+  color: var(--neon-gold);
+  text-shadow: 0 0 14px var(--neon-gold);
+  margin-bottom: 20px;
+}
+
+.upgrade-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.upgrade-card {
+  background: rgba(5, 25, 15, 0.9);
+  border: 2px solid var(--neon-gold);
+  border-radius: 6px;
+  padding: 18px 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.upgrade-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 0 25px rgba(255, 230, 0, 0.6);
+  background: rgba(10, 38, 22, 0.95);
+}
+
+.card-key-hint {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  font-family: var(--font-hud);
+  font-size: 11px;
+  color: #8EB2C6;
+}
+
+.card-icon {
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+.card-title {
+  font-family: var(--font-hud);
+  font-size: 13.5px;
+  font-weight: 800;
+  margin-bottom: 4px;
+}
+
+.card-cat {
+  font-size: 9px;
+  font-weight: 700;
+  color: #8AB89B;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+}
+
+.card-desc {
+  font-size: 11.5px;
+  color: #D2EEDC;
+  line-height: 1.45;
+  margin-bottom: 16px;
+  flex: 1;
+}
+
+.upgrade-card-btn {
+  background: transparent;
+  border: 1px solid var(--neon-gold);
+  color: #FFFFFF;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 3px;
+  cursor: pointer;
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   GAME OVER MODAL
+   ========================================================================== */
+.gameover-panel {
+  width: 520px;
+  background: #14080A;
+  border: 2px solid var(--neon-red);
+  box-shadow: 0 0 40px rgba(255, 27, 68, 0.4);
+}
+
+.gameover-stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 24px;
+  text-align: left;
+}
+
+.go-stat-card {
+  background: rgba(255, 27, 68, 0.08);
+  border: 1px solid rgba(255, 27, 68, 0.3);
+  padding: 10px 14px;
+  border-radius: 4px;
+}
+
+.go-stat-title {
+  font-size: 10px;
+  color: #A0B0C0;
+}
+
+.go-stat-val {
+  font-family: var(--font-hud);
+  font-size: 18px;
+  font-weight: 800;
+  color: #FFFFFF;
+}
+
+.hidden {
+  display: none !important;
+}
