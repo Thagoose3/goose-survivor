@@ -77,3 +77,25 @@ Distributed under the **MIT License**. See `LICENSE` for more information.
 <div align="center">
   <sub>Created with 🦆 and ⚡ by <a href="https://github.com/Thagoose3">Thagoose3</a></sub>
 </div>
+
+---
+
+## ☕ สนับสนุนผู้พัฒนา (Buy Me a Coffee)
+
+หากคุณชื่นชอบและเห็นว่า **Goose Survivor** มอบความสนุกและความมันส์ให้กับคุณ สามารถร่วมสนับสนุนค่ากาแฟและเป็นกำลังใจในการพัฒนาฟีเจอร์ใหม่ๆ ได้ที่ QR Code ด้านล่างนี้เลยครับ 💖
+
+<div align="center">
+  <br />
+  <img src="assets/donate_qr.png" alt="Thai QR Payment PromptPay" width="280" style="border-radius: 20px; box-shadow: 0 8px 30px rgba(0,0,0,0.12); border: 1px solid #e2e8f0;" />
+  <br />
+  <p style="margin-top: 10px; font-size: 15px; color: #334155;">
+    <strong>พร้อมเพย์ (PromptPay) : นายฐากูร เอ็นสาร</strong>
+  </p>
+  <br />
+</div>
+
+---
+
+<div align="center">
+  <p style="font-size: 12px; color: #94a3b8;">Goose Survivor — Built with ❤️ for intense roguelite fun.</p>
+</div>
