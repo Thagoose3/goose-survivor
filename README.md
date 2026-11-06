@@ -43,6 +43,8 @@ A fast-paced **Bullet Hell Roguelite Web Game** where you control a feisty Goose
   - *Cyber Foxes* (5-way shotgun spreads)
   - *Combine Harvester Boss* (Giant 360-degree rotating bullet spirals)
 - 🔊 **Procedural Web Audio API Synthesizer**: Authentic synthesized goose trumpet honks, waddle footsteps, egg explosions, and level-up chimes (100% offline, zero external mp3s).
+- 🎨 **v2 Visual Overhaul**: Hand-drawn farmer, drone, fox and Combine Harvester sprites, glowing additive bullets, hit-flash, shockwaves, dash afterimages, night-field backdrop, boss HP bar & banners.
+- 📱 **Mobile Ready**: Virtual joystick, touch HONK/DASH buttons, responsive HUD & menus, HiDPI rendering, haptics, pause, best-time save.
 - ❄️ **Ultra-Optimized Silent Fan Engine**: Zero costly canvas blurs, pre-rendered background cache, and throttled HUD reflows for cold & quiet laptops.
 
 ---
@@ -56,6 +58,19 @@ A fast-paced **Bullet Hell Roguelite Web Game** where you control a feisty Goose
 | <kbd>H</kbd> / **Left Click** | 📢 **HONK!** (Vaporize bullets & knockback) |
 | <kbd>1</kbd> / <kbd>2</kbd> / <kbd>3</kbd> | Select Upgrade Card during Level-Up |
 | <kbd>F11</kbd> | Toggle Borderless Fullscreen |
+| <kbd>Esc</kbd> / <kbd>P</kbd> | Pause / Resume |
+
+### 📱 Mobile / Touch
+
+| Touch | Action |
+|:---:|:---|
+| Drag anywhere (left side) | Floating virtual joystick, analog movement |
+| **⚡ DASH** button | Dash roll with i-frames |
+| **📢 HONK** button | HONK shockwave (cooldown ring shows when it's ready) |
+| Tap a card | Pick an upgrade on level-up |
+| **❚❚** | Pause (also auto-pauses when you switch apps) |
+
+Works in portrait and landscape (landscape recommended). On phones the camera zooms out so you see more of the arena. Use *Add to Home Screen* for fullscreen play.
 
 ---
 

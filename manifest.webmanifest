@@ -1,0 +1,14 @@
+{
+  "name": "Goose Survivor: Bullet Hell",
+  "short_name": "Goose Survivor",
+  "description": "Bullet hell roguelite: dodge bullet curtains as a feisty goose.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "fullscreen",
+  "orientation": "any",
+  "background_color": "#07100B",
+  "theme_color": "#07100B",
+  "icons": [
+    { "src": "assets/icon.png", "sizes": "any", "type": "image/png", "purpose": "any" }
+  ]
+}
